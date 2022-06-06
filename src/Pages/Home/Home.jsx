@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className={styles["page-container"]}>
       <Header />
-      <div className={styles["page-content"]}>HomePage</div>
+      <div className={styles["page-content"]}>Home Page</div>
     </div>
   );
 };

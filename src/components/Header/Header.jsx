@@ -20,6 +20,10 @@ const Header = () => {
           {" "}
           <li> Sign In </li>
         </ul>
+        <ul className={styles.link}>
+          {" "}
+          <li> Contact Us</li>
+        </ul>
       </div>
       <div className={styles.dropDown}>
         <DropDown fill="purple" onClick={handleToggle} />
