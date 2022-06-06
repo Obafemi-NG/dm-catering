@@ -79,6 +79,9 @@
   padding: 10px;
   margin-bottom: 15px;
 }
+.sign-up:hover {
+  cursor: pointer;
+}
 .existing {
   font-size: 12px;
   font-weight: 400;
@@ -87,4 +90,7 @@
 .signin {
   font-weight: 500;
   color: #f66b0e;
+}
+.signin:hover {
+  cursor: pointer;
 }
