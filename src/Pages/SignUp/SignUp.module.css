@@ -20,7 +20,12 @@
     margin-top: 17vw;
   }
 }
-
+@media screen and (min-width: 420px) {
+  .name {
+    display: flex;
+    justify-content: space-between;
+  }
+}
 .input-section {
   display: flex;
   flex-direction: column;
@@ -69,7 +74,7 @@
   align-items: center;
 }
 .sign-up {
-  background-color: #205375;
+  background-color: #804996;
   border: none;
   color: white;
   font-size: 16px;

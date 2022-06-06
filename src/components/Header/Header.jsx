@@ -26,7 +26,7 @@ const Header = () => {
         </ul>
       </div>
       <div className={styles.dropDown}>
-        <DropDown fill="purple" onClick={handleToggle} />
+        <DropDown fill="#804996" onClick={handleToggle} />
       </div>
     </div>
   );

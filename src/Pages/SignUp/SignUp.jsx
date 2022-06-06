@@ -9,20 +9,23 @@ const SignUp = () => {
       <Header />
       <div className={styles["page-content"]}>
         <div className={styles["form-section"]}>
-          <div className={styles["input-section"]}>
-            <input className={styles.input} type="text" />
-            <label className={styles.label} htmlFor="firstName">
-              {" "}
-              First Name <span className={styles.asterik}>*</span>
-            </label>
+          <div className={styles.name}>
+            <div className={styles["input-section"]}>
+              <input className={styles.input} type="text" />
+              <label className={styles.label} htmlFor="firstName">
+                {" "}
+                First Name <span className={styles.asterik}>*</span>
+              </label>
+            </div>
+            <div className={styles["input-section"]}>
+              <input className={styles.input} type="text" />
+              <label className={styles.label} htmlFor="lastName">
+                {" "}
+                Last Name <span className={styles.asterik}>*</span>
+              </label>
+            </div>
           </div>
-          <div className={styles["input-section"]}>
-            <input className={styles.input} type="text" />
-            <label className={styles.label} htmlFor="lastName">
-              {" "}
-              Last Name <span className={styles.asterik}>*</span>
-            </label>
-          </div>
+
           <div className={styles["input-section"]}>
             <input className={styles.input} type="email" />
             <label className={styles.label} htmlFor="email">
