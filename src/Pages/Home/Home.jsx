@@ -9,7 +9,10 @@ const Home = () => {
         <Header />
       </div>
       <div className={styles["page-content"]}>
-        Home Page
+        <div className={styles["welcome-message"]}>
+          {" "}
+          <span className={styles.greetings}> Welcome! </span> Obafemi,
+        </div>
         <div className={styles.menu}>
           <Menu />
         </div>

@@ -1,3 +1,13 @@
+.welcome-message {
+  margin: 2px 5px;
+  font-size: 18px;
+  font-weight: 300;
+}
+.greetings {
+  font-size: 22px;
+  font-weight: 600;
+}
+
 @media screen and (max-width: 480px) {
   .header {
     display: none;
@@ -8,5 +18,5 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  border-top: 0.2px solid #804996;
+  /* border-top: 0.2px solid #804996; */
 }
