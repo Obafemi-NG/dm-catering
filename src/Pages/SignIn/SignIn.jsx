@@ -16,13 +16,13 @@ const SignIn = () => {
         </div>
         <div className={styles["form-section"]}>
           <div className={styles["input-section"]}>
-            <input className={styles.input} type="email" />
+            <input className={styles.input} type="email" required />
             <label className={styles.label} htmlFor="email">
               Email
             </label>
           </div>
           <div className={styles["input-section"]}>
-            <input className={styles.input} type="password" />
+            <input className={styles.input} type="password" required />
             <label className={styles.label} htmlFor="email">
               Password
             </label>
