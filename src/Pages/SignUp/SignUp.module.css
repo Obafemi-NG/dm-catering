@@ -42,12 +42,6 @@
     margin-bottom: 30px;
   }
 }
-/* @media screen and (max-width: 420px) {
-  .page-content {
-    margin-top: 17vw;
-    width: 70vw;
-  }
-} */
 .input-section {
   display: flex;
   flex-direction: column;
@@ -75,6 +69,7 @@
   font-size: 14px;
   letter-spacing: 0.05rem;
 }
+
 .input:focus ~ label,
 .input:valid ~ label {
   top: 11px;
@@ -83,7 +78,7 @@
   transition: 0.5s top;
   font-size: 14px;
   font-weight: 500;
-  color: rgb(130, 130, 130);
+  color: #804996;
 }
 .asterik {
   color: red;

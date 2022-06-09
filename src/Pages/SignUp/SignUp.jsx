@@ -20,6 +20,7 @@ const SignUp = () => {
               <input
                 className={`${styles.input} ${styles["name-input"]}`}
                 type="text"
+                required
               />
               <label className={styles.label} htmlFor="firstName">
                 {" "}
@@ -30,6 +31,7 @@ const SignUp = () => {
               <input
                 className={`${styles.input} ${styles["name-input"]}`}
                 type="text"
+                required
               />
               <label className={styles.label} htmlFor="lastName">
                 {" "}
@@ -39,21 +41,21 @@ const SignUp = () => {
           </div>
 
           <div className={styles["input-section"]}>
-            <input className={styles.input} type="email" />
+            <input className={styles.input} type="email" required />
             <label className={styles.label} htmlFor="email">
               {" "}
               Email
             </label>
           </div>
           <div className={styles["input-section"]}>
-            <input className={styles.input} type="password" />
+            <input className={styles.input} type="password" required />
             <label className={styles.label} htmlFor="password">
               {" "}
               Password
             </label>
           </div>
           <div className={styles["input-section"]}>
-            <input className={styles.input} type="password" />
+            <input className={styles.input} type="password" required />
             <label className={styles.label} htmlFor="confirmPassword">
               {" "}
               Confirm Password
