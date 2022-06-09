@@ -1,13 +1,19 @@
 import Header from "../../components/Header/Header";
 import styles from "./SignUp.module.css";
 import { useNavigate } from "react-router-dom";
+import { ReactComponent as Logo } from "../../assets/DM-catering new Logo.svg";
 
 const SignUp = () => {
   const navigate = useNavigate();
   return (
     <div className={styles["page-container"]}>
-      <Header />
+      <div className={styles.header}>
+        <Header />
+      </div>
       <div className={styles["page-content"]}>
+        <div className={styles.logo}>
+          <Logo height={100} width={100} />
+        </div>
         <div className={styles["form-section"]}>
           <div className={styles.name}>
             <div className={styles["input-section"]}>
@@ -17,7 +23,7 @@ const SignUp = () => {
               />
               <label className={styles.label} htmlFor="firstName">
                 {" "}
-                First Name <span className={styles.asterik}>*</span>
+                First Name
               </label>
             </div>
             <div className={styles["input-section"]}>
@@ -27,7 +33,7 @@ const SignUp = () => {
               />
               <label className={styles.label} htmlFor="lastName">
                 {" "}
-                Last Name <span className={styles.asterik}>*</span>
+                Last Name
               </label>
             </div>
           </div>
@@ -36,21 +42,21 @@ const SignUp = () => {
             <input className={styles.input} type="email" />
             <label className={styles.label} htmlFor="email">
               {" "}
-              Email <span className={styles.asterik}>*</span>
+              Email
             </label>
           </div>
           <div className={styles["input-section"]}>
             <input className={styles.input} type="password" />
             <label className={styles.label} htmlFor="password">
               {" "}
-              Password <span className={styles.asterik}>*</span>
+              Password
             </label>
           </div>
           <div className={styles["input-section"]}>
             <input className={styles.input} type="password" />
             <label className={styles.label} htmlFor="confirmPassword">
               {" "}
-              Confirm Password <span className={styles.asterik}>*</span>
+              Confirm Password
             </label>
           </div>
           <div className={styles["cta-section"]}>
