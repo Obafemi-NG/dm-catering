@@ -1,3 +1,6 @@
+.page-container {
+  height: 100vh;
+}
 .page-content {
   margin: auto;
   border: 1px solid #efefef;

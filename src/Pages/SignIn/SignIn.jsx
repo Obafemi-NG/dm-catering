@@ -1,24 +1,30 @@
 import Header from "../../components/Header/Header";
 import styles from "./SignIn.module.css";
 import { ReactComponent as Google } from "../../assets/google-plus-g-brands.svg";
+import { ReactComponent as Logo } from "../../assets/DM-catering new Logo.svg";
 import { useNavigate } from "react-router-dom";
 const SignIn = () => {
   const navigate = useNavigate();
   return (
     <div className={styles["page-container"]}>
-      <Header />
+      <div className={styles.header}>
+        <Header />
+      </div>
       <div className={styles["page-content"]}>
+        <div className={styles.logo}>
+          <Logo height={150} width={150} />
+        </div>
         <div className={styles["form-section"]}>
           <div className={styles["input-section"]}>
             <input className={styles.input} type="email" />
             <label className={styles.label} htmlFor="email">
-              Email <span className={styles.asterik}>*</span>
+              Email
             </label>
           </div>
           <div className={styles["input-section"]}>
             <input className={styles.input} type="password" />
             <label className={styles.label} htmlFor="email">
-              Password <span className={styles.asterik}>*</span>
+              Password
             </label>
           </div>
         </div>
@@ -35,6 +41,7 @@ const SignIn = () => {
             </span>
           </div>
           <div className={styles["google-container"]}>
+            <div className={styles.or}>or</div>
             <button className={styles["google-signin"]}>
               Sign in with Google{" "}
               <span className={styles["google-logo"]}>
