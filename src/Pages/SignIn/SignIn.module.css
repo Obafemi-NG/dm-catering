@@ -6,7 +6,7 @@
   border: 1px solid #efefef;
   padding: 20px 15px;
   width: 40vw;
-  margin-top: 5vw;
+  margin-top: 7vw;
   border-radius: 3px;
   box-shadow: 1px 1px 7px -1px rgba(181, 181, 181, 0.75);
   -webkit-box-shadow: 1px 1px 7px -1px rgba(181, 181, 181, 0.75);
@@ -105,10 +105,13 @@ input:focus {
   padding: 10px;
   margin-bottom: 25px;
 }
+.signin:hover {
+  cursor: pointer;
+}
 .no-account {
   font-size: 13px;
   font-weight: 400;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   color: rgb(66, 66, 66);
 }
 .sign-up {
@@ -117,46 +120,4 @@ input:focus {
 }
 .sign-up:hover {
   cursor: pointer;
-}
-
-.google-container {
-  padding-top: 30px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  border-top: 1px solid lightgray;
-  position: relative;
-}
-.or {
-  position: absolute;
-  top: -12px;
-  background-color: white;
-  padding: 0px 10px;
-  font-weight: 500;
-}
-.google-signin {
-  background-color: blue;
-  color: white;
-  border: none;
-  width: 70%;
-  font-size: 14px;
-  font-weight: 700;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-  border-radius: 5px;
-  text-transform: uppercase;
-}
-.google-logo {
-  margin-left: 10px;
-}
-@media screen and (max-width: 720px) {
-  .google-signin {
-    font-size: 12px;
-  }
-  .google-logo {
-    margin-left: 5px;
-  }
 }

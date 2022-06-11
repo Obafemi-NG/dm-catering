@@ -3,8 +3,14 @@ import styles from "./SignIn.module.css";
 import { ReactComponent as Google } from "../../assets/google-plus-g-brands.svg";
 import { ReactComponent as Logo } from "../../assets/DM-catering new Logo.svg";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Firebase/firebase.utils";
+
 const SignIn = () => {
   const navigate = useNavigate();
+
+  const handleSignIn = () => {};
+
   return (
     <div className={styles["page-container"]}>
       <div className={styles.header}>
@@ -29,7 +35,9 @@ const SignIn = () => {
           </div>
         </div>
         <div className={styles["cta-section"]}>
-          <button className={styles.signin}>SIGN IN</button>
+          <button onClick={handleSignIn} className={styles.signin}>
+            SIGN IN
+          </button>
           <div className={styles["no-account"]}>
             Do not have an account with us?{" "}
             <span
@@ -39,16 +47,6 @@ const SignIn = () => {
               {" "}
               Sign Up{" "}
             </span>
-          </div>
-          <div className={styles["google-container"]}>
-            <div className={styles.or}>or</div>
-            <button className={styles["google-signin"]}>
-              Sign in with Google{" "}
-              <span className={styles["google-logo"]}>
-                {" "}
-                <Google height={25} width={25} fill="white" />{" "}
-              </span>
-            </button>
           </div>
         </div>
       </div>

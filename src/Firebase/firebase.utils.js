@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { doc, setDoc, getDoc, getFirestore } from "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBqaVDGvHwl8SE9HUc3I-NClfL8ZL9-8dE",
@@ -11,8 +11,6 @@ const firebaseConfig = {
   appId: "1:216363865772:web:743b6511bbffb9119b7109",
   measurementId: "G-1ZHE1K3K2P",
 };
-
-const firestore = getFirestore();
 
 export const createUser = async (userAuth, additionalData) => {
   if (!userAuth) return;
@@ -33,18 +31,6 @@ export const createUser = async (userAuth, additionalData) => {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
+const firestore = getFirestore();
 export const auth = getAuth(firebaseApp);
-export const signInWithGoogle = () => {
-  const provider = new GoogleAuthProvider();
-  provider.setCustomParameters({
-    prompt: "select_account",
-  });
-  signInWithPopup(auth, provider)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      const errorMessage = error.message;
-      console.log(errorMessage);
-    });
-};
+export default firestore;

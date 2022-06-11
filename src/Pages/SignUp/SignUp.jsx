@@ -5,9 +5,43 @@ import { ReactComponent as Logo } from "../../assets/DM-catering new Logo.svg";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.utils";
+import { createUser } from "../../Firebase/firebase.utils";
+import { useState } from "react";
 
 const SignUp = () => {
+  const [details, setDetails] = useState({
+    displayName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const navigate = useNavigate();
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+    setDetails({
+      [name]: value,
+    });
+  };
+  const handleSignUp = async () => {
+    const { email, password, confirmPassword, displayName } = details;
+    if (password !== confirmPassword) {
+      alert("Password do not match!");
+      return;
+    }
+    try {
+      const { user } = createUserWithEmailAndPassword(auth, email, password);
+      await createUser(user, { displayName });
+      setDetails({
+        displayName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
+      alert(`Could not create new User. ${error} `);
+    }
+  };
+  const { email, password, confirmPassword, displayName } = details;
   return (
     <div className={styles["page-container"]}>
       <div className={styles.header}>
@@ -23,49 +57,64 @@ const SignUp = () => {
               <input
                 className={`${styles.input} ${styles["name-input"]}`}
                 type="text"
+                name="displayName"
+                value={displayName}
+                onChange={handleChange}
                 required
               />
               <label className={styles.label} htmlFor="firstName">
                 {" "}
-                First Name
-              </label>
-            </div>
-            <div className={styles["input-section"]}>
-              <input
-                className={`${styles.input} ${styles["name-input"]}`}
-                type="text"
-                required
-              />
-              <label className={styles.label} htmlFor="lastName">
-                {" "}
-                Last Name
+                Full Name
               </label>
             </div>
           </div>
 
           <div className={styles["input-section"]}>
-            <input className={styles.input} type="email" required />
+            <input
+              className={styles.input}
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              required
+            />
             <label className={styles.label} htmlFor="email">
               {" "}
               Email
             </label>
           </div>
           <div className={styles["input-section"]}>
-            <input className={styles.input} type="password" required />
+            <input
+              className={styles.input}
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+              required
+            />
             <label className={styles.label} htmlFor="password">
               {" "}
               Password
             </label>
           </div>
           <div className={styles["input-section"]}>
-            <input className={styles.input} type="password" required />
+            <input
+              className={styles.input}
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={handleChange}
+              type="password"
+              required
+            />
             <label className={styles.label} htmlFor="confirmPassword">
               {" "}
               Confirm Password
             </label>
           </div>
           <div className={styles["cta-section"]}>
-            <button className={styles["sign-up"]}>SIGN UP</button>
+            <button onClick={handleSignUp} className={styles["sign-up"]}>
+              SIGN UP
+            </button>
             <div className={styles.existing}>
               Have an account already?{" "}
               <span
