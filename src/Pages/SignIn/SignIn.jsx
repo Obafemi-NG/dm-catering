@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Header from "../../components/Header/Header";
 import styles from "./SignIn.module.css";
 import { ReactComponent as Google } from "../../assets/google-plus-g-brands.svg";
@@ -7,9 +8,26 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.utils";
 
 const SignIn = () => {
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
 
-  const handleSignIn = () => {};
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    const { email, password } = loginDetails;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setLoginDetails({
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      alert(`Something went wrong! ${error.message} `);
+    }
+  };
 
   return (
     <div className={styles["page-container"]}>

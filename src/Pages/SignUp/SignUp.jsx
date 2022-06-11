@@ -19,17 +19,24 @@ const SignUp = () => {
   const handleChange = (e) => {
     const { value, name } = e.target;
     setDetails({
+      ...details,
       [name]: value,
     });
   };
-  const handleSignUp = async () => {
+  const handleSignUp = async (e) => {
+    e.preventDefault();
     const { email, password, confirmPassword, displayName } = details;
+    console.log({ email, password, confirmPassword, displayName });
     if (password !== confirmPassword) {
       alert("Password do not match!");
       return;
     }
     try {
-      const { user } = createUserWithEmailAndPassword(auth, email, password);
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       await createUser(user, { displayName });
       setDetails({
         displayName: "",
@@ -37,6 +44,7 @@ const SignUp = () => {
         password: "",
         confirmPassword: "",
       });
+      navigate("/signin");
     } catch (error) {
       alert(`Could not create new User. ${error} `);
     }
