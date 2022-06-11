@@ -14,7 +14,7 @@ const firebaseConfig = {
 
 const firestore = getFirestore();
 
-export const signInWithEmailAndPassword = async (userAuth, additionalData) => {
+export const createUser = async (userAuth, additionalData) => {
   if (!userAuth) return;
   const userRef = doc(firestore, `users/${userAuth.id}`);
   const snapShot = await getDoc(userRef);
@@ -28,6 +28,7 @@ export const signInWithEmailAndPassword = async (userAuth, additionalData) => {
     } catch (error) {
       console.log(error);
     }
+    return docRef;
   }
 };
 

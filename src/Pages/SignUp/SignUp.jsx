@@ -3,6 +3,9 @@ import styles from "./SignUp.module.css";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/DM-catering new Logo.svg";
 
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Firebase/firebase.utils";
+
 const SignUp = () => {
   const navigate = useNavigate();
   return (
