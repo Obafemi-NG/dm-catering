@@ -1,6 +1,23 @@
 import { initializeApp } from "firebase/app";
-import { doc, setDoc, getDoc, getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  getFirestore,
+  addDoc,
+  collection,
+  where,
+  query,
+} from "firebase/firestore";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  signOut,
+  GoogleAuthProvider,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBqaVDGvHwl8SE9HUc3I-NClfL8ZL9-8dE",
@@ -12,25 +29,70 @@ const firebaseConfig = {
   measurementId: "G-1ZHE1K3K2P",
 };
 
-export const createUser = async (userAuth, additionalData) => {
-  if (!userAuth) return;
-  const userRef = doc(firestore, `users/${userAuth.id}`);
-  const snapShot = await getDoc(userRef);
-  if (!snapShot.exists()) {
-    const { displayName, email } = userAuth;
-    const createdAt = new Date();
-    const docRef = doc(firestore, "users", `${userAuth.uid}`);
-    const payload = { displayName, email, createdAt, ...additionalData };
-    try {
-      setDoc(docRef, payload);
-    } catch (error) {
-      console.log(error);
+const firebaseApp = initializeApp(firebaseConfig);
+const firestore = getFirestore(firebaseApp);
+export const auth = getAuth(firebaseApp);
+export default firestore;
+const provider = new GoogleAuthProvider();
+
+export const registerNewUser = async (email, password, displayName) => {
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+    console.log(user);
+    await addDoc(collection(firestore, "users"), {
+      uid: user.uid,
+      email,
+      displayName,
+    });
+  } catch (error) {
+    console.log(error);
+    alert(`Error creating new user. ${error.message}`);
+  }
+};
+export const googleSignIn = async () => {
+  try {
+    const res = await signInWithPopup(auth, provider);
+    const user = res.user;
+    const userQuery = query(
+      collection(firestore, "users"),
+      where("uid", "==", user.uid)
+    );
+    const userDoc = await getDoc(userQuery);
+    if (userDoc.docs.length === 0) {
+      await addDoc(collection(firestore, "users"), {
+        uid: user.uid,
+        displayName: user.displayName,
+        provider: "google",
+        email: user.email,
+      });
     }
-    return docRef;
+    console.log(user);
+  } catch (error) {
+    console.log(error);
+    alert(`Error signing user in. ${error.message}`);
   }
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-const firestore = getFirestore();
-export const auth = getAuth(firebaseApp);
-export default firestore;
+export const signUserOut = () => {
+  signOut(auth);
+};
+
+export const resetUserPassword = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("Password reset link sent to your email!");
+  } catch (error) {
+    console.log(error);
+    alert(`an error occured. ${error.message}`);
+  }
+};
+
+export const signUserIn = async (email, password) => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    console.log(error);
+    alert(`error signing user in. ${error.message}`);
+  }
+};

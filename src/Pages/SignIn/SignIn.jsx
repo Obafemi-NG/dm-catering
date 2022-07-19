@@ -4,30 +4,40 @@ import styles from "./SignIn.module.css";
 import { ReactComponent as Google } from "../../assets/google-plus-g-brands.svg";
 import { ReactComponent as Logo } from "../../assets/DM-catering new Logo.svg";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../Firebase/firebase.utils";
+
+import { auth, signUserIn } from "../../Firebase/firebase.utils";
+
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../redux/userSlice";
 
 const SignIn = () => {
+  const dispatch = useDispatch();
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
   });
   const navigate = useNavigate();
 
-  const handleSignIn = async (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoginDetails({
+      ...loginDetails,
+      [name]: value,
+    });
+  };
+  const handleSignIn = (e) => {
     e.preventDefault();
     const { email, password } = loginDetails;
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      setLoginDetails({
-        email: "",
-        password: "",
-      });
-    } catch (error) {
-      alert(`Something went wrong! ${error.message} `);
-    }
+    console.log(loginDetails);
+    signUserIn(email, password);
+    setLoginDetails({
+      email: "",
+      password: "",
+    });
+    navigate("/");
   };
+
+  const { email, password } = loginDetails;
 
   return (
     <div className={styles["page-container"]}>
@@ -40,13 +50,27 @@ const SignIn = () => {
         </div>
         <div className={styles["form-section"]}>
           <div className={styles["input-section"]}>
-            <input className={styles.input} type="email" required />
+            <input
+              onChange={handleChange}
+              className={styles.input}
+              type="email"
+              name="email"
+              value={email}
+              required
+            />
             <label className={styles.label} htmlFor="email">
               Email
             </label>
           </div>
           <div className={styles["input-section"]}>
-            <input className={styles.input} type="password" required />
+            <input
+              onChange={handleChange}
+              className={styles.input}
+              type="password"
+              name="password"
+              value={password}
+              required
+            />
             <label className={styles.label} htmlFor="email">
               Password
             </label>
