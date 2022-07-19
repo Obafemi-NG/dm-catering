@@ -35,21 +35,22 @@ export const auth = getAuth(firebaseApp);
 export default firestore;
 const provider = new GoogleAuthProvider();
 
-export const registerNewUser = async (email, password, displayName) => {
-  try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
-    console.log(user);
-    await addDoc(collection(firestore, "users"), {
-      uid: user.uid,
-      email,
-      displayName,
-    });
-  } catch (error) {
-    console.log(error);
-    alert(`Error creating new user. ${error.message}`);
-  }
-};
+// export const registerNewUser = async (email, password, displayName) => {
+//   try {
+//     const res = await createUserWithEmailAndPassword(auth, email, password);
+//     const user = res.user;
+//     console.log(user);
+//     await addDoc(collection(firestore, "users"), {
+//       uid: user.uid,
+//       email,
+//       displayName,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     alert(`Error creating new user. ${error.message}`);
+//   }
+// };
+
 export const googleSignIn = async () => {
   try {
     const res = await signInWithPopup(auth, provider);
@@ -94,5 +95,24 @@ export const signUserIn = async (email, password) => {
   } catch (error) {
     console.log(error);
     alert(`error signing user in. ${error.message}`);
+  }
+};
+
+export const createUserDocument = async (userAuth, displayName) => {
+  if (!userAuth) return;
+
+  const userRef = doc(collection(firestore, "users"));
+  const snapShot = await getDoc(userRef);
+  if (!snapShot.exists()) {
+    const { uid, email } = userAuth;
+    const createdAt = new Date();
+    const docRef = doc(firestore, "users", `${uid}`);
+    const payload = { displayName, email, createdAt };
+    try {
+      await setDoc(docRef, payload);
+      // await addDoc(collection(firestore, "users"), payload);
+    } catch (error) {
+      console.log(error);
+    }
   }
 };

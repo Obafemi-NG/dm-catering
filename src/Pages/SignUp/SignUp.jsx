@@ -3,8 +3,13 @@ import styles from "./SignUp.module.css";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/DM-catering new Logo.svg";
 
-import { registerNewUser } from "../../Firebase/firebase.utils";
+import {
+  auth,
+  createUserDocument,
+  registerNewUser,
+} from "../../Firebase/firebase.utils";
 import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = () => {
   const [details, setDetails] = useState({
@@ -27,7 +32,14 @@ const SignUp = () => {
     if (password !== confirmPassword) {
       alert("password provided do not match");
     }
-    registerNewUser(email, password, displayName);
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    console.log(user);
+    await createUserDocument(user, displayName);
+    // await registerNewUser(email, password, displayName);
   };
   const { email, password, confirmPassword, displayName } = details;
   return (

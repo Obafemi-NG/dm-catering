@@ -29,12 +29,16 @@ const SignIn = () => {
     e.preventDefault();
     const { email, password } = loginDetails;
     console.log(loginDetails);
-    signUserIn(email, password);
-    setLoginDetails({
-      email: "",
-      password: "",
-    });
-    navigate("/");
+    if (email && password) {
+      signUserIn(email, password);
+      setLoginDetails({
+        email: "",
+        password: "",
+      });
+      navigate("/");
+    } else {
+      return;
+    }
   };
 
   const { email, password } = loginDetails;

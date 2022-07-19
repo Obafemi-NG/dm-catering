@@ -4,7 +4,7 @@ import Home from "./Pages/Home/Home";
 import SignIn from "./Pages/SignIn/SignIn";
 import SignUp from "./Pages/SignUp/SignUp";
 
-function App() {
+const App = () => {
   return (
     <div className={styles.App}>
       <BrowserRouter>
@@ -16,6 +16,6 @@ function App() {
       </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
