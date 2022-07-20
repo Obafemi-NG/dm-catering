@@ -28,14 +28,12 @@ const SignIn = () => {
   const handleSignIn = (e) => {
     e.preventDefault();
     const { email, password } = loginDetails;
-    console.log(loginDetails);
     if (email && password) {
       signUserIn(email, password);
       setLoginDetails({
         email: "",
         password: "",
       });
-      navigate("/");
     } else {
       return;
     }

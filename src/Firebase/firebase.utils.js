@@ -30,7 +30,7 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
-const firestore = getFirestore(firebaseApp);
+export const firestore = getFirestore(firebaseApp);
 export const auth = getAuth(firebaseApp);
 export default firestore;
 const provider = new GoogleAuthProvider();
@@ -101,18 +101,18 @@ export const signUserIn = async (email, password) => {
 export const createUserDocument = async (userAuth, displayName) => {
   if (!userAuth) return;
 
-  const userRef = doc(collection(firestore, "users"));
+  // const userRef = doc(collection(firestore, "users"));
+  const userRef = doc(firestore, "users", `${userAuth.uid}`);
   const snapShot = await getDoc(userRef);
   if (!snapShot.exists()) {
     const { uid, email } = userAuth;
-    const createdAt = new Date();
-    const docRef = doc(firestore, "users", `${uid}`);
-    const payload = { displayName, email, createdAt };
+    // const docRef = doc(firestore, "users", `${uid}`);
+    const payload = { displayName, email };
     try {
-      await setDoc(docRef, payload);
-      // await addDoc(collection(firestore, "users"), payload);
+      // await setDoc(docRef, payload);
+      await addDoc(collection(firestore, "users"), payload);
     } catch (error) {
       console.log(error);
     }
-  }
+  } else return;
 };

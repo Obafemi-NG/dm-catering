@@ -36,7 +36,7 @@
 .dropDown:hover {
   cursor: pointer;
 }
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 480px) {
   .dropDown {
     display: block;
   }
@@ -45,7 +45,7 @@
 .links {
   display: flex;
 }
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 480px) {
   .links {
     display: none;
   }
