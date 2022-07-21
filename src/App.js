@@ -8,7 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, createUserDocument } from "./Firebase/firebase.utils";
 import { useEffect } from "react";
 import { setCurrentUser } from "./redux/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import UserDashboard from "./Pages/UserDashboard/UserDashboard";
 
 const App = () => {
@@ -22,9 +22,6 @@ const App = () => {
     });
     return unsub;
   }, [dispatch]);
-  const currentUser = useSelector((state) => {
-    return state.user.currentUser;
-  });
   return (
     <div className={styles.App}>
       <BrowserRouter>
@@ -32,6 +29,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/dashboard" element={<UserDashboard />} />
         </Routes>
       </BrowserRouter>
     </div>

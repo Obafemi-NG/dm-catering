@@ -3,11 +3,7 @@ import styles from "./SignUp.module.css";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/DM-catering new Logo.svg";
 
-import {
-  auth,
-  createUserDocument,
-  registerNewUser,
-} from "../../Firebase/firebase.utils";
+import { auth, createUserDocument } from "../../Firebase/firebase.utils";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 

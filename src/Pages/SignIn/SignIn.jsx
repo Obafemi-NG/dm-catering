@@ -1,28 +1,23 @@
 import { useState } from "react";
 import Header from "../../components/Header/Header";
 import styles from "./SignIn.module.css";
-import { ReactComponent as Google } from "../../assets/google-plus-g-brands.svg";
 import { ReactComponent as Logo } from "../../assets/DM-catering new Logo.svg";
 import { useNavigate } from "react-router-dom";
 
-import {
-  auth,
-  retrieveUserDocument,
-  signUserIn,
-} from "../../Firebase/firebase.utils";
+import { auth } from "../../Firebase/firebase.utils";
 
-import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../../redux/userSlice";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useSelector } from "react-redux";
 
 const SignIn = () => {
-  const dispatch = useDispatch();
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
   });
   const navigate = useNavigate();
-
+  const currentUser = useSelector((state) => {
+    return state.user.currentUser;
+  });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginDetails({
@@ -34,19 +29,12 @@ const SignIn = () => {
     e.preventDefault();
     const { email, password } = loginDetails;
     if (email && password) {
-      const loggedInUser = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      await retrieveUserDocument(loggedInUser.user.uid);
-      console.log(loggedInUser);
-      // setLoginDetails({
-      //   email: "",
-      //   password: "",
-      // });
+      await signInWithEmailAndPassword(auth, email, password);
     } else {
       return;
+    }
+    if (currentUser) {
+      navigate("/dashboard");
     }
   };
 
