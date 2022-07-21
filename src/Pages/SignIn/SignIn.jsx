@@ -5,10 +5,15 @@ import { ReactComponent as Google } from "../../assets/google-plus-g-brands.svg"
 import { ReactComponent as Logo } from "../../assets/DM-catering new Logo.svg";
 import { useNavigate } from "react-router-dom";
 
-import { auth, signUserIn } from "../../Firebase/firebase.utils";
+import {
+  auth,
+  retrieveUserDocument,
+  signUserIn,
+} from "../../Firebase/firebase.utils";
 
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../redux/userSlice";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -25,15 +30,21 @@ const SignIn = () => {
       [name]: value,
     });
   };
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     const { email, password } = loginDetails;
     if (email && password) {
-      signUserIn(email, password);
-      setLoginDetails({
-        email: "",
-        password: "",
-      });
+      const loggedInUser = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await retrieveUserDocument(loggedInUser.user.uid);
+      console.log(loggedInUser);
+      // setLoginDetails({
+      //   email: "",
+      //   password: "",
+      // });
     } else {
       return;
     }

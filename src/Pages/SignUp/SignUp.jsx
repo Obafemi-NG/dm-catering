@@ -37,9 +37,7 @@ const SignUp = () => {
       email,
       password
     );
-    console.log(user);
     await createUserDocument(user, displayName);
-    // await registerNewUser(email, password, displayName);
   };
   const { email, password, confirmPassword, displayName } = details;
   return (

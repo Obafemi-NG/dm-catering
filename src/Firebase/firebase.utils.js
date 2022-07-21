@@ -11,7 +11,6 @@ import {
 } from "firebase/firestore";
 import {
   getAuth,
-  createUserWithEmailAndPassword,
   signInWithPopup,
   signInWithEmailAndPassword,
   signOut,
@@ -34,22 +33,6 @@ export const firestore = getFirestore(firebaseApp);
 export const auth = getAuth(firebaseApp);
 export default firestore;
 const provider = new GoogleAuthProvider();
-
-// export const registerNewUser = async (email, password, displayName) => {
-//   try {
-//     const res = await createUserWithEmailAndPassword(auth, email, password);
-//     const user = res.user;
-//     console.log(user);
-//     await addDoc(collection(firestore, "users"), {
-//       uid: user.uid,
-//       email,
-//       displayName,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     alert(`Error creating new user. ${error.message}`);
-//   }
-// };
 
 export const googleSignIn = async () => {
   try {
@@ -98,6 +81,23 @@ export const signUserIn = async (email, password) => {
   }
 };
 
+export const retrieveUserDocument = async (uid) => {
+  if (!uid) return;
+  if (uid) {
+    const userRef = doc(firestore, "users", `${uid}`);
+    const snapShot = await getDoc(userRef);
+    if (snapShot.exists()) {
+      // console.log(snapShot.data());
+      return {
+        uid,
+        ...snapShot.data(),
+      };
+    } else {
+      console.log("no such document");
+    }
+  }
+};
+
 export const createUserDocument = async (userAuth, displayName) => {
   if (!userAuth) return;
 
@@ -106,13 +106,13 @@ export const createUserDocument = async (userAuth, displayName) => {
   const snapShot = await getDoc(userRef);
   if (!snapShot.exists()) {
     const { uid, email } = userAuth;
-    // const docRef = doc(firestore, "users", `${uid}`);
+    const docRef = doc(firestore, "users", `${uid}`);
     const payload = { displayName, email };
     try {
-      // await setDoc(docRef, payload);
-      await addDoc(collection(firestore, "users"), payload);
+      await setDoc(docRef, payload);
     } catch (error) {
       console.log(error);
     }
-  } else return;
+  }
+  return retrieveUserDocument(userAuth.uid);
 };
